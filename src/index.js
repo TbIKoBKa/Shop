@@ -6,6 +6,7 @@ import store from './app/store'
 import { Provider } from 'react-redux'
 import './css/bootstrap.min.css'
 import './css/style.css'
+import './css/responsive.css'
 
 ReactDOM.render(
   <React.StrictMode>

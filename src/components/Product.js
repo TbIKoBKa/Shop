@@ -1,11 +1,12 @@
 import formatPrice from '../lib/formatPrice'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { toggleReviewsShow, setReviewsProductId } from '../app/createSlice'
 import StarRating from "./StarRating"
 
 let Product = (props) => {
     let { id, name, img, price, rating } = props.data;
     let dispatch = useDispatch();
+    let { theme } = useSelector((state) => state.shop);
 
     let onClick = (id) => {
         dispatch(toggleReviewsShow())
@@ -14,7 +15,7 @@ let Product = (props) => {
     
     return(
         <li className="products__item">
-            <article className="product">
+            <article className={ theme.id === 0 ? "product" : "product dark" }>
                 <div className="product-photo">
                     <img src={img} alt={name}></img>
                 </div>

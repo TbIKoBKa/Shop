@@ -1,11 +1,17 @@
 import Star from "./Star";
 
-let StarRating = ({rating}) => {
+let StarRating = ({ changeRate, toRate=false, rating}) => {
     let StarArray = new Array(5).fill(0);
     return(
-        <ul className="star-rating ms-1 d-flex align-items-center">
-            { StarArray.map((_, i) => <Star key={i} isActive={i < rating} />) }
-        </ul>
+        <>
+            {
+                toRate && 
+                StarArray.map((_, i) => <input key={i} type="radio" className="btn-check" name="rate" id={`rate${i}`} autoComplete="off" onClick={() => changeRate(i+1)}></input>)
+            }
+            <ul className="star-rating d-flex align-items-center">
+                { StarArray.map((_, i) => <Star key={i} toRate={{isToRate: toRate, value: i}} isActive={i < rating} />) }
+            </ul>
+        </>
     )
 }
 

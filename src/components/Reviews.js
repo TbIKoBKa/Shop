@@ -1,9 +1,10 @@
 import Review from "./Review"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { toggleAddReviewFormShow, toggleReviewsShow } from "../app/createSlice"
 
-let Reviews = ({reviewsShow, reviews, name, id}) => {
+let Reviews = ({reviewsShow, reviews, name}) => {
     let dispatch = useDispatch()
+    let { theme } = useSelector((state) => state.shop)
 
     let onClick = () => {
         dispatch(toggleAddReviewFormShow());
@@ -11,13 +12,13 @@ let Reviews = ({reviewsShow, reviews, name, id}) => {
     }
 
     return(
-        <div className={reviewsShow ? "darkBackground show" : "darkBackground"}>
-            <div className={reviewsShow ? "reviews show" : "reviews"}>
-                <div className="modal_header">
+        <div className="darkBackground">
+            <div className="modal_ reviews" style={{ backgroundColor: theme.props.backgroundColor }}>
+                <div className={theme.id === 0 ? "reviews-header modal_header" : "reviews-header modal_header dark"}>
                     <h1 className="modal_title">Отзывы: {name}</h1>
                     <button className="modal_close btn btn-outline-danger" onClick={() => {dispatch(toggleReviewsShow())}}>X</button>
                 </div>
-                <div className="modal_body">
+                <div className="modal_body reviews-body">
                 {
                     reviews.length > 0
                     ?
@@ -28,7 +29,9 @@ let Reviews = ({reviewsShow, reviews, name, id}) => {
                     <p>Отзывы отсутствуют</p>
                 }
                 </div>
-                <button className="btn btn-outline-success" onClick={() => onClick()}>Добавить отзыв</button>
+                <div className={theme.id === 0 ? "reviews-footer modal_footer" : "reviews-footer modal_footer dark"}>
+                    <button className="addReviewBtn btn btn-outline-success" onClick={() => onClick()}>Добавить отзыв</button>
+                </div>
             </div>
         </div>
     )

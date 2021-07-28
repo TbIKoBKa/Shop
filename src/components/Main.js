@@ -4,13 +4,13 @@ import Reviews from "./Reviews"
 import { useSelector } from "react-redux"
 
 let Main = () => {
-    let { reviewsShow, addReviewFormShow, reviewsProductId, products } = useSelector((state) => state.shop);
+    let { reviewsShow, addReviewFormShow, reviewsProductId, products, theme } = useSelector((state) => state.shop);
     let reviews = [];
     if(reviewsProductId)
         reviews = products.filter(product => product.id === reviewsProductId)[0].reviews
 
     return(
-        <main className="main main-light">
+        <main className="main" style={{ backgroundColor: theme.props.backgroundColor, color: theme.props.fontColor }}>
             <div className="container">
                 <Products/>
                 { addReviewFormShow && <AddReviewForm /> }
