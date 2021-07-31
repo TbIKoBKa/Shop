@@ -1,10 +1,10 @@
 import Review from "./Review"
 import { useDispatch, useSelector } from "react-redux"
-import { toggleAddReviewFormShow, toggleReviewsShow } from "../app/createSlice"
+import { toggleAddReviewFormShow, toggleReviewsShow } from "../app/productsSlice"
 
-let Reviews = ({reviewsShow, reviews, name}) => {
+let Reviews = ({ reviews, name }) => {
     let dispatch = useDispatch()
-    let { theme } = useSelector((state) => state.shop)
+    let theme = useSelector((state) => state.theme)
 
     let onClick = () => {
         dispatch(toggleAddReviewFormShow());

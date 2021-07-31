@@ -3,24 +3,18 @@ import { v4 } from "uuid";
 import formatDate from "../lib/formatDate";
 import upStringFirst from "../lib/upStringFirst";
 import data from './product_data'
-import themes from '../app/themes'
 
 export const productsSlice = createSlice({
     name: 'shop',
     initialState: {
         products: data,
-        theme: {
-            id: 0,
-            props: themes.light
-        },
         reviewsShow: false,
         reviewsProductId: '',
-        addReviewFormShow: false,
-        rateReviewFormShow: 1
+        addReviewFormShow: false
     },
     reducers: {
         addReview: (state, action) => {
-            let { message, pros, cons, from } = action.payload;
+            let { message, pros, cons, from, rating } = action.payload;
             let prosArray = pros.length > 0 ? pros.split(',').map(item => upStringFirst(item.trim())) : []
             let consArray = cons.length > 0 ? cons.split(',').map(item => upStringFirst(item.trim())) : []
             let newReview = {
@@ -28,7 +22,7 @@ export const productsSlice = createSlice({
                 message,
                 pros: prosArray,
                 cons: consArray,
-                rating: state.rateReviewFormShow,
+                rating,
                 from,
                 date: formatDate(new Date())
             }
@@ -40,7 +34,6 @@ export const productsSlice = createSlice({
                 return item;
             })
             state.addReviewFormShow = false
-            state.rateReviewFormShow = 1
         },
         setReviewsProductId: (state, action) => {
             state.reviewsProductId = action.payload
@@ -50,15 +43,7 @@ export const productsSlice = createSlice({
         },
         toggleAddReviewFormShow: (state) => {
             state.addReviewFormShow = !state.addReviewFormShow
-            state.rateReviewFormShow = 1;
         },
-        setRateReviewFormShow: (state, action) => {
-            state.rateReviewFormShow = action.payload;
-        },
-        toggleTheme: (state) => {
-            state.theme.id = state.theme.id === 0 ? 1 : 0;
-            state.theme.props = state.theme.id === 0 ? themes.light : themes.dark;
-        }
     }
 })
 
@@ -66,9 +51,7 @@ export const {
     addReview,
     setReviewsProductId,
     toggleReviewsShow,
-    toggleAddReviewFormShow,
-    setRateReviewFormShow,
-    toggleTheme
+    toggleAddReviewFormShow
 } = productsSlice.actions
 
 export default productsSlice.reducer

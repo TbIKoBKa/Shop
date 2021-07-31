@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { toggleTheme } from "../app/createSlice"
+import { toggleTheme } from "../app/themeSlice"
 
 let Header = () => {
     let dispatch = useDispatch()

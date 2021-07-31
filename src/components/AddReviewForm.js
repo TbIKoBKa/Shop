@@ -1,11 +1,12 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { toggleAddReviewFormShow, addReview, setRateReviewFormShow } from "../app/createSlice"
+import { toggleAddReviewFormShow, addReview } from "../app/productsSlice"
 import StarRating from "./StarRating"
 
 let AddReviewForm = () => {
-    let { rateReviewFormShow, theme } = useSelector((state) => state.shop)
+    let theme = useSelector((state) => state.theme)
     let dispatch = useDispatch()
+    let [ rateReviewFormShow, setRateReviewFormShow ] = useState(1);
     const nameRef = useRef(null)
     const messageRef = useRef(null)
     const prosRef = useRef(null)
@@ -16,12 +17,9 @@ let AddReviewForm = () => {
             from: nameRef.current.value,
             message: messageRef.current.value,
             pros: prosRef.current.value,
-            cons: consRef.current.value
+            cons: consRef.current.value,
+            rating: rateReviewFormShow
         }))
-    }
-
-    let changeRate = (newRate) => {
-        dispatch(setRateReviewFormShow(newRate))
     }
 
     return(
@@ -35,7 +33,7 @@ let AddReviewForm = () => {
                     <form method="POST" onSubmit={(e) => onSubmit(e)}>
                         <div className="form-group">
                             <label htmlFor="firstname">Оцените товар *</label>
-                            <StarRating toRate={true} changeRate={changeRate} rating={ rateReviewFormShow }/>
+                            <StarRating toRate={true} changeRate={ setRateReviewFormShow } rating={ rateReviewFormShow }/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="firstname">Имя *</label>

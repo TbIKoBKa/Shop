@@ -4,7 +4,8 @@ import Reviews from "./Reviews"
 import { useSelector } from "react-redux"
 
 let Main = () => {
-    let { reviewsShow, addReviewFormShow, reviewsProductId, products, theme } = useSelector((state) => state.shop);
+    let { reviewsShow, addReviewFormShow, reviewsProductId, products } = useSelector((state) => state.shop);
+    let theme = useSelector((state) => state.theme)
     let reviews = [];
     if(reviewsProductId)
         reviews = products.filter(product => product.id === reviewsProductId)[0].reviews

@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productReducer from './createSlice'
+import productReducer from './productsSlice'
+import themeReducer from './themeSlice'
 
 export default configureStore({
     reducer: {
         shop: productReducer,
+        theme: themeReducer
     },
 })
